@@ -1,0 +1,14 @@
+{
+    "name": "os2display/exchange-bundle",
+    "description": "Os2Display exchange calendar integration",
+    "type": "symfony-bundle",
+    "require": {
+        "os2display/core-bundle": "^1.0",
+        "twig/extensions": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Os2Display\\ExchangeBundle\\": ""
+        }
+    }
+}
