@@ -6,6 +6,7 @@
             <argument type="service" id="os2display.exchange_web_service"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument>%os2display_exchange_enabled%</argument>
+            <argument>%os2display_exchange_user%</argument>
             <tag name="kernel.event_listener" event="ik.cron" method="onCron" />
         </service>
 
