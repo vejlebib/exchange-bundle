@@ -1,6 +1,6 @@
 <?php
 
-namespace Os2Display\ExchangeBundle\Model;
+namespace Itk\ExchangeBundle\Model;
 
 class ExchangeBooking
 {

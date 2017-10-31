@@ -4,14 +4,14 @@
  * Contains the Os2Display ExchangeService.
  */
 
-namespace Os2Display\ExchangeBundle\Service;
+namespace Itk\ExchangeBundle\Service;
 
-use Os2Display\ExchangeBundle\Model\ExchangeBooking;
-use Os2Display\ExchangeBundle\Model\ExchangeCalendar;
+use Itk\ExchangeBundle\Model\ExchangeBooking;
+use Itk\ExchangeBundle\Model\ExchangeCalendar;
 
 /**
  * Class ExchangeWebService
- * @package Os2Display\ExchangeBundle\Service
+ * @package Itk\ExchangeBundle\Service
  */
 class ExchangeWebService
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Os2Display\ExchangeBundle\Controller;
+namespace Itk\ExchangeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class DefaultController
- * @package Os2Display\ExchangeBundle\Controller
+ * @package Itk\ExchangeBundle\Controller
  */
 class DefaultController extends Controller
 {

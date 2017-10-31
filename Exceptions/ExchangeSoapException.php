@@ -4,11 +4,11 @@
  * Customer Exception for soap exception.
  */
 
-namespace Os2Display\ExchangeBundle\Exceptions;
+namespace Itk\ExchangeBundle\Exceptions;
 
 /**
  * Class ExchangeSoapException
- * @package Os2Display\ExchangeBundle\Exceptions
+ * @package Itk\ExchangeBundle\Exceptions
  */
 class ExchangeSoapException extends \RuntimeException
 {

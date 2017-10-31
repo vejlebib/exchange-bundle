@@ -4,14 +4,14 @@
  * Simple SOAP client build around CURL to communicate with Exchange EWS.
  */
 
-namespace Os2Display\ExchangeBundle\Service;
+namespace Itk\ExchangeBundle\Service;
 
-use Os2Display\ExchangeBundle\Exceptions\ExchangeSoapException;
+use Itk\ExchangeBundle\Exceptions\ExchangeSoapException;
 
 /**
  * Class ExchangeSoapClientService.
  *
- * @package Os2Display\ExchangeBundle\Services
+ * @package Itk\ExchangeBundle\Services
  */
 class ExchangeSoapClientService
 {

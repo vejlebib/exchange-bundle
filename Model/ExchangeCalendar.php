@@ -4,11 +4,11 @@
  *
  */
 
-namespace Os2Display\ExchangeBundle\Model;
+namespace Itk\ExchangeBundle\Model;
 
 /**
  * Class ExchangeCalendar
- * @package Os2Display\ExchangeBundle\Model
+ * @package Itk\ExchangeBundle\Model
  */
 class ExchangeCalendar
 {
@@ -96,7 +96,7 @@ class ExchangeCalendar
     }
 
     /**
-     * @param \Os2Display\ExchangeBundle\Model\ExchangeBooking $booking
+     * @param \Itk\ExchangeBundle\Model\ExchangeBooking $booking
      */
     public function addBooking(ExchangeBooking $booking)
     {

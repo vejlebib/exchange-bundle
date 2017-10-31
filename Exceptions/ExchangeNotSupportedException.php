@@ -4,11 +4,11 @@
  * Customer Exception for methods not supported yet.
  */
 
-namespace Os2Display\ExchangeBundle\Exceptions;
+namespace Itk\ExchangeBundle\Exceptions;
 
 /**
  * Class ExchangeNotSupportedException
- * @package Os2Display\ExchangeBundle\Exceptions
+ * @package Itk\ExchangeBundle\Exceptions
  */
 class ExchangeNotSupportedException extends \RuntimeException
 {
