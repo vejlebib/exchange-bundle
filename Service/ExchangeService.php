@@ -4,14 +4,14 @@
  * Wrapper service for the more specialized exchanges services.
  */
 
-namespace Os2Display\ExchangeBundle\Service;
+namespace Itk\ExchangeBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Os2Display\CoreBundle\Events\CronEvent;
 
 /**
  * Class ExchangeService
- * @package Os2Display\ExchangeBundle\Service
+ * @package Itk\ExchangeBundle\Service
  */
 class ExchangeService
 {
