@@ -20,10 +20,10 @@ class DefaultController extends Controller
      */
     public function indexAction($email)
     {
-        $start = mktime(0, 0, 0);
+        $start = strtotime('-7 days', mktime(23, 59, 29));
         $end = strtotime('+7 days', mktime(23, 59, 29));
 
-        $calendar = $this->get('os2display.exchange_service')
+        $calendar = $this->get('itk.exchange_service')
             ->getExchangeBookingsForInterval(
                 $email,
                 $start,

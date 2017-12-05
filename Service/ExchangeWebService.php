@@ -94,7 +94,11 @@ class ExchangeWebService
             '</ItemShape>',
             '<CalendarView StartDate="' . date('c', $from) . '" EndDate="' . date('c', $to) . '"/>',
             '<ParentFolderIds>',
-            '<t:DistinguishedFolderId Id="calendar"/>',
+            '<t:DistinguishedFolderId Id="calendar">',
+            '<t:Mailbox>',
+            '<t:EmailAddress>' . $resource . '</t:EmailAddress>',
+            '</t:Mailbox>',
+            '</t:DistinguishedFolderId>',
             '</ParentFolderIds>',
             '</FindItem>',
         ]);

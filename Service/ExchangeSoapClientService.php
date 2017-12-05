@@ -72,7 +72,7 @@ class ExchangeSoapClientService
     }
 
     /**
-     * Preform request against the Exchange EWS service.
+     * Perform request against the Exchange EWS service.
      *
      * @param string $action
      *   SOAP action header.
