@@ -51,6 +51,7 @@ class ExchangeWebService
                 '<t:BaseShape>Default</t:BaseShape>',
                 '<t:BodyType>Text</t:BodyType>',
                 '<t:AdditionalProperties>',
+                '<t:FieldURI FieldURI="calendar:IsAllDayEvent" />',
                 '<t:FieldURI FieldURI="item:Body" />',
                 '</t:AdditionalProperties>',
                 '</ItemShape>',
@@ -124,19 +125,33 @@ class ExchangeWebService
         // Find the calendar items.
         $calendarItems = $xpath->query('//t:CalendarItem');
 
+        // Iterate $calendarItems.
         foreach ($calendarItems as $calendarItem) {
             $itemIds = $this->nodeToArray($doc, $calendarItem);
 
+            // Get data for booking.
             $item = $this->getBooking($itemIds['ItemId']['@Id'], $itemIds['ItemId']['@ChangeKey']);
 
+            // Get data from item.
             $subject = array_key_exists('Subject', $item) ? $item['Subject'] : null;
+            $isAllDayEvent = array_key_exists('IsAllDayEvent', $item) ? $item['IsAllDayEvent'] : null;
             $location = array_key_exists('Location', $item) ? $item['Location'] : null;
             $startTime = array_key_exists('Start', $item) ? strtotime($item['Start']) : null;
             $endTime = array_key_exists('End', $item) ? strtotime($item['End']) : null;
-            $body = array_key_exists('Body', $item) ? $item['Body'] : null;
+            $body = array_key_exists('Body', $item) ? $item['Body'] : '';
 
+            // Make sure body is a string.
+            if (!is_string($body)) {
+                $body = '';
+            }
+
+            // Change from string to boolean.
+            $isAllDayEvent = $isAllDayEvent == 'true';
+
+            // Create exchange booking.
             $booking = new ExchangeBooking();
             $booking->setEventName($subject);
+            $booking->setIsAllDayEvent($isAllDayEvent);
             $booking->setLocation($location);
             $booking->setStartTime($startTime);
             $booking->setEndTime($endTime);

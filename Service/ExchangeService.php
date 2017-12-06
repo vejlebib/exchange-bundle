@@ -9,7 +9,6 @@ namespace Itk\ExchangeBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Os2Display\CoreBundle\Events\CronEvent;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Doctrine\Common\Cache\CacheProvider;
 
 /**
@@ -145,7 +144,7 @@ class ExchangeService
                             $start,
                             $end
                         );
-                    } catch (HttpException $e) {
+                    } catch (\Exception $e) {
                         // Ignore exceptions. The show must keep running, even though we have no connection to koba.
                     }
 

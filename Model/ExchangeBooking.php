@@ -13,6 +13,7 @@ namespace Itk\ExchangeBundle\Model;
 class ExchangeBooking
 {
     public $event_name;
+    public $is_all_day_event;
     public $start_time;
     public $end_time;
     public $body;
@@ -23,6 +24,8 @@ class ExchangeBooking
      *
      * @param string $event_name
      *   The name of the booking.
+     * @param bool $is_all_day_event
+     *   Whether or not the event is an all day event.
      * @param int $start_time
      *   The booking start time.
      * @param int $end_time
@@ -34,12 +37,14 @@ class ExchangeBooking
      */
     public function __construct(
         $event_name = '',
+        $is_all_day_event = false,
         $start_time = 0,
         $end_time = 0,
         $body = '',
         $location = ''
     ) {
         $this->event_name = $event_name;
+        $this->is_all_day_event = $is_all_day_event;
         $this->start_time = $start_time;
         $this->end_time = $end_time;
         $this->body = $body;
@@ -124,5 +129,21 @@ class ExchangeBooking
     public function setLocation($location)
     {
         $this->location = $location;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllDayEvent()
+    {
+        return $this->is_all_day_event;
+    }
+
+    /**
+     * @param bool $is_all_day_event
+     */
+    public function setIsAllDayEvent($is_all_day_event)
+    {
+        $this->is_all_day_event = $is_all_day_event;
     }
 }
