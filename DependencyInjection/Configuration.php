@@ -1,4 +1,7 @@
 <?php
+/**
+ * Contains configuration.
+ */
 
 namespace Itk\ExchangeBundle\DependencyInjection;
 
@@ -20,12 +23,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('itk_exchange');
 
+        // Set up re
         $rootNode
             ->children()
-                ->booleanNode('enabled')->defaultValue(false)->end()
-                ->scalarNode('host')->end()
-                ->scalarNode('user')->end()
-                ->scalarNode('password')->end()
+                ->booleanNode('enabled')->defaultFalse()->end()
+                ->scalarNode('host')->isRequired()->end()
+                ->scalarNode('user')->isRequired()->end()
+                ->scalarNode('password')->isRequired()->end()
                 ->scalarNode('version')->defaultValue('Exchange2010')->end()
                 ->integerNode('cache_ttl')->defaultValue(1800)->end()
             ->end()

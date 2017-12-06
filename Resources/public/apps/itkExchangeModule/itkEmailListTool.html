@@ -11,28 +11,30 @@
     </div>
     <div class="edit-menu--background-page">
       <div
-          class="edit-menu--background-page-inner itk-template-extension--content">
+          class="edit-menu--background-page-inner itk-exchange--content">
         <h2 class="edit-menu--background-header">Vælg emails</h2>
 
-        <div class="itk-template-extension--tool-section">
-          <h2 class="itk-template-extension--tool-headline">Vælg hvilke emails
+        <div class="itk-exchange--tool-section">
+          <h2 class="itk-exchange--tool-headline">Vælg hvilke emails
             der skal indgå i sliden</h2>
           <form name="emailForm" ng-submit="addEmail()">
             <label for="text">Email</label>
             <input id="text" type="email" ng-model="email">
-            <input type="submit" class="itk-template-extension--button" value="+ Tilføj email">
+            <input type="submit" class="itk-exchange--button" value="+ Tilføj email">
           </form>
         </div>
 
-        <div class="itk-template-extension--tool-section">
-          <h2 class="itk-template-extension--tool-headline">Valgte emails</h2>
+        <div class="itk-exchange--tool-section">
+          <h2 class="itk-exchange--tool-headline">Valgte emails</h2>
 
-          <div ng-repeat="resource in slide.options.resources track by $index"
-               style="margin-bottom: 2em; display: flex; border: 1px solid grey; align-items: center; padding: .5em;">
-            <div style="flex-basis: 80%;">{{resource.mail}}</div>
-            <div style="flex-basis: 20%;" class="itk-template-extension--button-remove"
-                  ng-click="removeEmail(resource.mail)">- Fjern
-            </div>
+          <div data-ng-repeat="resource in slide.options.resources track by $index"
+              class="itk-exchange--resource-list-element">
+            {{resource.mail}}
+            <span>
+              <div class="itk-exchange--button-remove is-small"
+                   data-ng-click="removeEmail($index)">Fjern
+              </div>
+            </span>
           </div>
         </div>
       </div>

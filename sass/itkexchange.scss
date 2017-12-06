@@ -1,0 +1,60 @@
+.itk-exchange {
+  &--content {
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &--tool-section {
+    border: 2px solid #ccc;
+    border-radius: 1%;
+    padding: 2em;
+    margin-bottom: 2em;
+
+    input {
+      margin-bottom: 1em;
+    }
+  }
+
+  &--tool-headline {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  &--button,
+  &--button-remove {
+    background-color: #357fd1;
+    color: #fff;
+    border-radius: 1%;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    max-width: 200px;
+    cursor: pointer;
+    user-select: none;
+
+    &.is-small {
+      padding: 0.5em;
+      font-size: .6em;
+    }
+  }
+
+  &--button:hover {
+    background-color: #2361a9;
+  }
+
+  &--button-remove {
+    background-color: #b20000;
+  }
+
+  &--button-remove:hover {
+    background-color: #800000;
+  }
+
+  &--resource-list-element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 400px;
+  }
+}

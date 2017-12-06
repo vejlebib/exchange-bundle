@@ -1,7 +1,15 @@
 <?php
+/**
+ * @file
+ * Contains the model for an exchange booking.
+ */
 
 namespace Itk\ExchangeBundle\Model;
 
+/**
+ * Class ExchangeBooking
+ * @package Itk\ExchangeBundle\Model
+ */
 class ExchangeBooking
 {
     public $event_name;
@@ -10,8 +18,27 @@ class ExchangeBooking
     public $body;
     public $location;
 
-    public function __construct($event_name = '', $start_time = 0, $end_time = 0, $body = '', $location = '')
-    {
+    /**
+     * ExchangeBooking constructor.
+     *
+     * @param string $event_name
+     *   The name of the booking.
+     * @param int $start_time
+     *   The booking start time.
+     * @param int $end_time
+     *   The booking end time.
+     * @param string $body
+     *   The booking body.
+     * @param string $location
+     *   The booking location.
+     */
+    public function __construct(
+        $event_name = '',
+        $start_time = 0,
+        $end_time = 0,
+        $body = '',
+        $location = ''
+    ) {
         $this->event_name = $event_name;
         $this->start_time = $start_time;
         $this->end_time = $end_time;

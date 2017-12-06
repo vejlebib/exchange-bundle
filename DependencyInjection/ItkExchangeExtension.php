@@ -1,4 +1,7 @@
 <?php
+/**
+ * Contains configuration loading.
+ */
 
 namespace Itk\ExchangeBundle\DependencyInjection;
 

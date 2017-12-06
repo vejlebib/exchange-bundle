@@ -1,4 +1,6 @@
 assets:
+  css:
+    - bundles/itkexchange/assets/build/itkexchange.min.css
   js_prod:
     - bundles/itkexchange/assets/build/itkexchange.min.js
 

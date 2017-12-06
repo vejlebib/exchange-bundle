@@ -18,6 +18,12 @@ class ExchangeWebService
 
     private $client;
 
+    /**
+     * ExchangeWebService constructor.
+     *
+     * @param \Itk\ExchangeBundle\Service\ExchangeSoapClientService $client
+     *   The soap client service.
+     */
     public function __construct(ExchangeSoapClientService $client)
     {
         $this->client = $client;
@@ -31,7 +37,8 @@ class ExchangeWebService
      * @param $changeKey
      *   The Exchange change key (revision id).
      *
-     * @return array
+     * @return array|bool|null
+     *   The booking item as array or false if empty, null if no items were found.
      */
     public function getBooking($id, $changeKey)
     {
@@ -141,6 +148,18 @@ class ExchangeWebService
         return $calendar;
     }
 
+    /**
+     * Convert a XML node to en array.
+     *
+     * From: http://php.net/manual/en/class.domnode.php#115448
+     *
+     * @param $dom
+     *   The dom document.
+     * @param $node
+     *   The dom node.
+     * @return array|bool
+     *   The node as an array or false if empty.
+     */
     private function nodeToArray($dom, $node)
     {
         if (!is_a($dom, 'DOMDocument') || !is_a($node, 'DOMNode')) {

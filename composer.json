@@ -4,7 +4,6 @@
     "type": "symfony-bundle",
     "require": {
         "os2display/core-bundle": "^1.0",
-        "twig/extensions": "^1.0",
         "doctrine/cache": "^1.0"
     },
     "autoload": {

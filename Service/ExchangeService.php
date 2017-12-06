@@ -28,10 +28,15 @@ class ExchangeService
      * ExchangeService constructor.
      *
      * @param CacheProvider $cache
+     *   The cache.
      * @param ExchangeWebService $exchangeWebService
+     *   The ExchangeWebService service.
      * @param EntityManager $entityManager
+     *   The Entity manager.
      * @param $serviceEnabled
+     *   Should the service be enabled?
      * @param $cacheTTL
+     *   Cache entry time to live.
      */
     public function __construct(
         CacheProvider $cache,
@@ -55,6 +60,7 @@ class ExchangeService
      * Updates calendar slides.
      *
      * @param CronEvent $event
+     *   The cron event.
      */
     public function onCron(CronEvent $event)
     {
@@ -95,7 +101,7 @@ class ExchangeService
     }
 
     /**
-     * Update the calendar events for calendar slides.
+     * Update the slide.external_data for calendar slides.
      */
     public function updateCalendarSlides()
     {
@@ -143,9 +149,12 @@ class ExchangeService
                         // Ignore exceptions. The show must keep running, even though we have no connection to koba.
                     }
 
-                    $this->cache->save($cacheKey, $resourceBookings, $this->cacheTTL);
-                }
-                else {
+                    $this->cache->save(
+                        $cacheKey,
+                        $resourceBookings,
+                        $this->cacheTTL
+                    );
+                } else {
                     $resourceBookings = $cachedData;
                 }
 

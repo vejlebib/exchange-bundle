@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- *
+ * Contains the model for an exchange calendar.
  */
 
 namespace Itk\ExchangeBundle\Model;
@@ -19,12 +19,20 @@ class ExchangeCalendar
 
     /**
      * @param $resourceMail
+     *   The mail of the resource.
      * @param $start
+     *   The start time.
      * @param $end
+     *   The end time.
      * @param array $bookings
+     *   The bookings.
      */
-    public function __construct($resourceMail, $start, $end, $bookings = array())
-    {
+    public function __construct(
+        $resourceMail,
+        $start,
+        $end,
+        $bookings = array()
+    ) {
         $this->resourceMail = $resourceMail;
         $this->start = $start;
         $this->end = $end;
