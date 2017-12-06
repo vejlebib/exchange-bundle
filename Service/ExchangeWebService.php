@@ -43,15 +43,22 @@ class ExchangeWebService
     public function getBooking($id, $changeKey)
     {
         // Build XML body.
+        // To add more fields look at:
+        // https://msdn.microsoft.com/en-us/library/office/aa494315(v=exchg.140).aspx
+        // for available fields.
         $body = implode(
             '',
             [
                 '<GetItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages">',
                 '<ItemShape>',
-                '<t:BaseShape>Default</t:BaseShape>',
+                '<t:BaseShape>IdOnly</t:BaseShape>',
                 '<t:BodyType>Text</t:BodyType>',
                 '<t:AdditionalProperties>',
                 '<t:FieldURI FieldURI="calendar:IsAllDayEvent" />',
+                '<t:FieldURI FieldURI="calendar:End" />',
+                '<t:FieldURI FieldURI="calendar:Start" />',
+                '<t:FieldURI FieldURI="calendar:Location" />',
+                '<t:FieldURI FieldURI="item:Subject" />',
                 '<t:FieldURI FieldURI="item:Body" />',
                 '</t:AdditionalProperties>',
                 '</ItemShape>',

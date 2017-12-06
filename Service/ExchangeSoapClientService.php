@@ -15,16 +15,13 @@ use Itk\ExchangeBundle\Exceptions\ExchangeSoapException;
  */
 class ExchangeSoapClientService
 {
-    const USER_AGENT = 'ExchangeWebService Os2Display';
-
-    /**
-     * Connection information about Exchange EWS.
-     *
-     * @var array
-     */
+    // Connection information about Exchange EWS.
     private $exchange;
 
+    // Soap namespaces for EWS requests.
     private $namespaces;
+
+    // Options for cURL requests.
     private $curlOptions = [];
 
     /**
@@ -58,7 +55,8 @@ class ExchangeSoapClientService
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC | CURLAUTH_NTLM,
             CURLOPT_USERPWD => $this->exchange['username'] . ':' . $this->exchange['password'],
-            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_CONNECTTIMEOUT => 2,
+            CURLOPT_TIMEOUT => 5,
             CURLOPT_FOLLOWLOCATION => 1,
         ];
 
