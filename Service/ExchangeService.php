@@ -109,8 +109,7 @@ class ExchangeService
             ->getRepository('Os2DisplayCoreBundle:Slide')
             ->findBySlideType('calendar');
 
-        // now - 1 hour.
-        $start = time() - 3600;
+        $start = time();
         // Round down to nearest hour
         $start = $start - ($start % 3600);
 
@@ -123,10 +122,16 @@ class ExchangeService
             $options = $slide->getOptions();
 
             foreach ($options['resources'] as $resource) {
+                // Default interval is today + 6 days.
                 $interestInterval = 6;
-                // Read interestInterval from options.
+
+                // Figure out how many days should be added to $todayEnd.
                 if (isset($options['interest_interval'])) {
-                    $interestInterval = $options['interest_interval'] - 1;
+                    if ($options['interest_interval'] <= 1) {
+                        $interestInterval = 0;
+                    } else {
+                        $interestInterval = $options['interest_interval'] - 1;
+                    }
                 }
 
                 // Move today with number of requested days.
@@ -136,6 +141,7 @@ class ExchangeService
 
                 $cacheKey = $resource['mail'] . '-' . $start . '-' . $end;
 
+                // Serve cached data if available, else get fresh results from EWS.
                 $cachedData = $this->cache->fetch($cacheKey);
                 if (false === ($cachedData)) {
                     try {
@@ -157,6 +163,7 @@ class ExchangeService
                     $resourceBookings = $cachedData;
                 }
 
+                // Merge results.
                 if (count($resourceBookings) > 0) {
                     $bookings = array_merge($bookings, $resourceBookings);
                 }
@@ -167,9 +174,11 @@ class ExchangeService
                 return strcmp($a->getStartTime(), $b->getStartTime());
             });
 
+            // Save to slide.external_data field.
             $slide->setExternalData($bookings);
         }
 
+        // Persist changes.
         $this->entityManager->flush();
     }
 }

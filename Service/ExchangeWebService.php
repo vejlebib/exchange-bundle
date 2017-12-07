@@ -15,7 +15,6 @@ use Itk\ExchangeBundle\Model\ExchangeCalendar;
  */
 class ExchangeWebService
 {
-
     private $client;
 
     /**
@@ -30,43 +29,49 @@ class ExchangeWebService
     }
 
     /**
-     * Get detailed information about a booking.
+     * Get an array of calendar items.
      *
-     * @param $id
-     *   The Exchange ID for the booking.
-     * @param $changeKey
-     *   The Exchange change key (revision id).
-     *
-     * @return array|bool|null
-     *   The booking item as array or false if empty, null if no items were found.
+     * @param array $itemIds
+     *   The item ids that should be got. Each item is an array with id and changeKey.
+     * @return array
+     *   The elements that where returned from ews.
      */
-    public function getBooking($id, $changeKey)
+    private function getBookings($itemIds)
     {
         // Build XML body.
         // To add more fields look at:
         // https://msdn.microsoft.com/en-us/library/office/aa494315(v=exchg.140).aspx
         // for available fields.
+        $items = [
+            '<GetItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages">',
+            '<ItemShape>',
+            '<t:BaseShape>IdOnly</t:BaseShape>',
+            '<t:BodyType>Text</t:BodyType>',
+            '<t:AdditionalProperties>',
+            '<t:FieldURI FieldURI="calendar:IsAllDayEvent" />',
+            '<t:FieldURI FieldURI="calendar:End" />',
+            '<t:FieldURI FieldURI="calendar:Start" />',
+            '<t:FieldURI FieldURI="calendar:Location" />',
+            '<t:FieldURI FieldURI="item:Subject" />',
+            '<t:FieldURI FieldURI="item:Body" />',
+            '</t:AdditionalProperties>',
+            '</ItemShape>',
+            '<ItemIds>',
+        ];
+
+        // Insert items.
+        foreach ($itemIds as $item) {
+            $items[] = '<t:ItemId Id="' . $item['id'] . '" ChangeKey="' . $item['changeKey'] . '"/>';
+        }
+
+        // Insert closing elements.
+        $items[] = '</ItemIds>';
+        $items[] = '</GetItem>';
+
+        // Convert to string.
         $body = implode(
             '',
-            [
-                '<GetItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages">',
-                '<ItemShape>',
-                '<t:BaseShape>IdOnly</t:BaseShape>',
-                '<t:BodyType>Text</t:BodyType>',
-                '<t:AdditionalProperties>',
-                '<t:FieldURI FieldURI="calendar:IsAllDayEvent" />',
-                '<t:FieldURI FieldURI="calendar:End" />',
-                '<t:FieldURI FieldURI="calendar:Start" />',
-                '<t:FieldURI FieldURI="calendar:Location" />',
-                '<t:FieldURI FieldURI="item:Subject" />',
-                '<t:FieldURI FieldURI="item:Body" />',
-                '</t:AdditionalProperties>',
-                '</ItemShape>',
-                '<ItemIds>',
-                '<t:ItemId Id="' . $id . '" ChangeKey="' . $changeKey . '"/>',
-                '</ItemIds>',
-                '</GetItem>',
-            ]
+            $items
         );
 
         $xml = $this->client->request('GetItem', $body);
@@ -77,11 +82,16 @@ class ExchangeWebService
         $xpath->registerNamespace('t', 'http://schemas.microsoft.com/exchange/services/2006/types');
         $items = $xpath->query('//t:CalendarItem');
 
+        $results = [];
+
+        // Convert $items to $results array.
         if ($items->length) {
-            return $this->nodeToArray($doc, $items->item(0));
+            foreach ($items as $item) {
+                $results[] = $this->nodeToArray($doc, $item);
+            }
         }
 
-        return null;
+        return $results;
     }
 
     /**
@@ -102,7 +112,7 @@ class ExchangeWebService
         $calendar = new ExchangeCalendar($resource, $from, $to);
 
         // Build XML body.
-        $body = implode('', [
+        $requstBody = implode('', [
             '<FindItem  Traversal="Shallow" xmlns="http://schemas.microsoft.com/exchange/services/2006/messages">',
             '<ItemShape>',
             '<t:BaseShape>IdOnly</t:BaseShape>',
@@ -119,8 +129,8 @@ class ExchangeWebService
         ]);
 
         // Send request to EWS.
-        // To add impersonation: $xml = $this->client->request('FindItem', $body, $resource);
-        $xml = $this->client->request('FindItem', $body);
+        // To add impersonation: $xml = $this->client->request('FindItem', $body, $resourceToImpersonate);
+        $xml = $this->client->request('FindItem', $requstBody);
 
         // Parse the response.
         $doc = new \DOMDocument();
@@ -132,13 +142,21 @@ class ExchangeWebService
         // Find the calendar items.
         $calendarItems = $xpath->query('//t:CalendarItem');
 
-        // Iterate $calendarItems.
+        $itemIds = [];
+
+        // Extract item ids.
         foreach ($calendarItems as $calendarItem) {
-            $itemIds = $this->nodeToArray($doc, $calendarItem);
+            $id = $this->nodeToArray($doc, $calendarItem);
+            $itemIds[] = [
+              'id' => $id['ItemId']['@Id'],
+              'changeKey' => $id['ItemId']['@ChangeKey']
+            ];
+        }
 
-            // Get data for booking.
-            $item = $this->getBooking($itemIds['ItemId']['@Id'], $itemIds['ItemId']['@ChangeKey']);
+        $calendarItems = $this->getBookings($itemIds);
 
+        // Iterate $calendarItems.
+        foreach ($calendarItems as $item) {
             // Get data from item.
             $subject = array_key_exists('Subject', $item) ? $item['Subject'] : null;
             $isAllDayEvent = array_key_exists('IsAllDayEvent', $item) ? $item['IsAllDayEvent'] : null;
