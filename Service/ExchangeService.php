@@ -12,8 +12,7 @@ use Os2Display\CoreBundle\Events\CronEvent;
 use Doctrine\Common\Cache\CacheProvider;
 
 /**
- * Class ExchangeService
- * @package Itk\ExchangeBundle\Service
+ * Class ExchangeService.
  */
 class ExchangeService
 {
@@ -26,16 +25,11 @@ class ExchangeService
     /**
      * ExchangeService constructor.
      *
-     * @param CacheProvider $cache
-     *   The cache.
-     * @param ExchangeWebService $exchangeWebService
-     *   The ExchangeWebService service.
-     * @param EntityManager $entityManager
-     *   The Entity manager.
-     * @param $serviceEnabled
-     *   Should the service be enabled?
-     * @param $cacheTTL
-     *   Cache entry time to live.
+     * @param CacheProvider      $cache              The cache
+     * @param ExchangeWebService $exchangeWebService The ExchangeWebService service
+     * @param EntityManager      $entityManager      The Entity manager
+     * @param bool               $serviceEnabled     Should the service be enabled?
+     * @param int                $cacheTTL           Cache entry time to live
      */
     public function __construct(
         CacheProvider $cache,
@@ -58,8 +52,7 @@ class ExchangeService
      *
      * Updates calendar slides.
      *
-     * @param CronEvent $event
-     *   The cron event.
+     * @param CronEvent $event The cron event
      */
     public function onCron(CronEvent $event)
     {
@@ -74,15 +67,11 @@ class ExchangeService
     /**
      * Get the ExchangeBookings for a resource in an interval.
      *
-     * @param $resourceMail
-     *   The resource mail.
-     * @param $startTime
-     *   The start time.
-     * @param $endTime
-     *   The end time.
+     * @param string $resourceMail The resource mail
+     * @param int    $startTime    The start time
+     * @param int    $endTime      The end time
      *
-     * @return array
-     *   Array of ExchangeBookings.
+     * @return array Array of ExchangeBookings
      */
     public function getExchangeBookingsForInterval(
         $resourceMail,
@@ -135,11 +124,11 @@ class ExchangeService
                 }
 
                 // Move today with number of requested days.
-                $end = strtotime('+' . $interestInterval . ' days', $todayEnd);
+                $end = strtotime('+'.$interestInterval.' days', $todayEnd);
 
                 $resourceBookings = [];
 
-                $cacheKey = $resource['mail'] . '-' . $start . '-' . $end;
+                $cacheKey = $resource['mail'].'-'.$start.'-'.$end;
 
                 // Serve cached data if available, else get fresh results from EWS.
                 $cachedData = $this->cache->fetch($cacheKey);
@@ -151,7 +140,8 @@ class ExchangeService
                             $end
                         );
                     } catch (\Exception $e) {
-                        // Ignore exceptions. The show must keep running, even though we have no connection to koba.
+                        // Ignore exceptions. The show must keep running, even
+                        // though we have no connection to koba.
                     }
 
                     $this->cache->save(

@@ -10,8 +10,6 @@ use Itk\ExchangeBundle\Exceptions\ExchangeSoapException;
 
 /**
  * Class ExchangeSoapClientService.
- *
- * @package Itk\ExchangeBundle\Services
  */
 class ExchangeSoapClientService
 {
@@ -27,17 +25,17 @@ class ExchangeSoapClientService
     /**
      * Construct the SOAP client.
      *
-     * @param string $host
-     *   The host to connect to.
-     * @param string $username
-     *   The username to use.
-     * @param string $password
-     *   The password to match the username.
-     * @param string $version
-     *   The Exchange version.
+     * @param string $host     The host to connect to
+     * @param string $username The username to use
+     * @param string $password The password to match the username
+     * @param string $version  The Exchange version
      */
-    public function __construct($host, $username, $password, $version = 'Exchange2010')
-    {
+    public function __construct(
+        $host,
+        $username,
+        $password,
+        $version = 'Exchange2010'
+    ) {
         // Set account information to the Exchange EWS.
         $this->exchange = [
             'host' => $host,
@@ -54,7 +52,7 @@ class ExchangeSoapClientService
             CURLOPT_POST => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC | CURLAUTH_NTLM,
-            CURLOPT_USERPWD => $this->exchange['username'] . ':' . $this->exchange['password'],
+            CURLOPT_USERPWD => $this->exchange['username'].':'.$this->exchange['password'],
             CURLOPT_CONNECTTIMEOUT => 2,
             CURLOPT_TIMEOUT => 5,
             CURLOPT_FOLLOWLOCATION => 1,
@@ -72,20 +70,19 @@ class ExchangeSoapClientService
     /**
      * Perform request against the Exchange EWS service.
      *
-     * @param string $action
-     *   SOAP action header.
-     * @param string $xmlBody
-     *   The XML body request
-     * @param string|null $impersonationId
-     *   The impersonation id (normally the room id as a mail address).
-     * @param array $options
-     *   Extra options for the transport client.
+     * @param string      $action          SOAP action header
+     * @param string      $xmlBody         The XML body request
+     * @param string|null $impersonationId The impersonation id (normally the room id as a mail address)
+     * @param array       $options         Extra options for the transport client
      *
-     * @return mixed
-     *   The RAW XML response.
+     * @return mixed The RAW XML response
      */
-    public function request($action, $xmlBody, $impersonationId = null, $options = [])
-    {
+    public function request(
+        $action,
+        $xmlBody,
+        $impersonationId = null,
+        $options = []
+    ) {
         // Merge options with defaults.
         $options = $options + $this->curlOptions;
 
@@ -103,15 +100,11 @@ class ExchangeSoapClientService
     /**
      * Send request via CURL.
      *
-     * @param string $action
-     *   SOAP action header.
-     * @param string $requestBody
-     *   The request XML message.
-     * @param array $options
-     *   Extra options for the transport client.
+     * @param string $action      SOAP action header
+     * @param string $requestBody The request XML message
+     * @param array  $options     Extra options for the transport client
      *
-     * @return mixed
-     *   The RAW XML response.
+     * @return mixed The RAW XML response
      */
     private function curlRequest($action, $requestBody, $options)
     {
@@ -121,7 +114,7 @@ class ExchangeSoapClientService
             'Connection: Keep-Alive',
             'User-Agent: Symfony-Exchange-Soap-Client',
             'Content-Type: text/xml; charset=utf-8',
-            'SOAPAction: "' . $action . '"',
+            'SOAPAction: "'.$action.'"',
         ];
         $options[CURLOPT_HTTPHEADER] = $headers;
 
@@ -129,7 +122,7 @@ class ExchangeSoapClientService
         $options[CURLOPT_POSTFIELDS] = $requestBody;
 
         // Initialise and configure cURL.
-        $ch = curl_init($this->exchange['host'] . '/EWS/Exchange.asmx');
+        $ch = curl_init($this->exchange['host'].'/EWS/Exchange.asmx');
         curl_setopt_array($ch, $options);
 
         // Send the request.
@@ -137,10 +130,10 @@ class ExchangeSoapClientService
 
         // Check if request went well.
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if ($code !== 200 || $response === false) {
+        if (200 !== $code || false === $response) {
             $erroNo = curl_errno($ch);
             if (!$erroNo) {
-                throw new ExchangeSoapException('HTTP error - ' . $code, $code);
+                throw new ExchangeSoapException('HTTP error - '.$code, $code);
             }
             throw new ExchangeSoapException(curl_error($ch), $erroNo);
         }
@@ -154,23 +147,20 @@ class ExchangeSoapClientService
     /**
      * Generate SOAP message.
      *
-     * @param string $xmlBody
-     *   The XML message inside the body tag.
-     * @param string|null $impersonationId
-     *   The mail address of the user to impersonate.
+     * @param string      $xmlBody         The XML message inside the body tag
+     * @param string|null $impersonationId The mail address of the user to impersonate
      *
-     * @return string
-     *   The final XML message.
+     * @return string The final XML message
      */
     private function generateSoapMessage($xmlBody, $impersonationId = null)
     {
         // Build namespace string.
         $ns_string = '';
         foreach ($this->namespaces as $key => $url) {
-            if ($key == '') {
-                $ns_string .= ' xmlns="' . $url . '"';
+            if ('' == $key) {
+                $ns_string .= ' xmlns="'.$url.'"';
             } else {
-                $ns_string .= ' xmlns:' . $key . '="' . $url . '"';
+                $ns_string .= ' xmlns:'.$key.'="'.$url.'"';
             }
         }
 
@@ -184,16 +174,16 @@ class ExchangeSoapClientService
                 $impersonationId,
                 '</t:PrimarySmtpAddress>',
                 '</t:ConnectingSID>',
-                '</t:ExchangeImpersonation>'
+                '</t:ExchangeImpersonation>',
             ]);
         }
 
         // Build the final message.
         $message = [
             'header' => '<?xml version="1.0" encoding="UTF-8"?>',
-            'env_start' => '<soap:Envelope' . $ns_string . '>',
+            'env_start' => '<soap:Envelope'.$ns_string.'>',
             'soap_header_start' => '<soap:Header>',
-            'version' => '<t:RequestServerVersion Version ="' . $this->exchange['version'] . '"/>',
+            'version' => '<t:RequestServerVersion Version ="'.$this->exchange['version'].'"/>',
             'tz' => '<t:TimeZoneContext><t:TimeZoneDefinition Id="Central Europe Standard Time"/></t:TimeZoneContext>',
             'im' => $impersonation,
             'soap_header_end' => '</soap:Header>',

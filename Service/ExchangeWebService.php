@@ -10,8 +10,7 @@ use Itk\ExchangeBundle\Model\ExchangeBooking;
 use Itk\ExchangeBundle\Model\ExchangeCalendar;
 
 /**
- * Class ExchangeWebService
- * @package Itk\ExchangeBundle\Service
+ * Class ExchangeWebService.
  */
 class ExchangeWebService
 {
@@ -20,8 +19,7 @@ class ExchangeWebService
     /**
      * ExchangeWebService constructor.
      *
-     * @param \Itk\ExchangeBundle\Service\ExchangeSoapClientService $client
-     *   The soap client service.
+     * @param \Itk\ExchangeBundle\Service\ExchangeSoapClientService $client The soap client service
      */
     public function __construct(ExchangeSoapClientService $client)
     {
@@ -31,10 +29,9 @@ class ExchangeWebService
     /**
      * Get an array of calendar items.
      *
-     * @param array $itemIds
-     *   The item ids that should be got. Each item is an array with id and changeKey.
-     * @return array
-     *   The elements that where returned from ews.
+     * @param array $itemIds The item ids that should be got. Each item is an array with id and changeKey.
+     *
+     * @return array The elements that where returned from ews
      */
     private function getBookings($itemIds)
     {
@@ -61,7 +58,7 @@ class ExchangeWebService
 
         // Insert items.
         foreach ($itemIds as $item) {
-            $items[] = '<t:ItemId Id="' . $item['id'] . '" ChangeKey="' . $item['changeKey'] . '"/>';
+            $items[] = '<t:ItemId Id="'.$item['id'].'" ChangeKey="'.$item['changeKey'].'"/>';
         }
 
         // Insert closing elements.
@@ -97,15 +94,11 @@ class ExchangeWebService
     /**
      * Get bookings on a resource.
      *
-     * @param $resource
-     *   The resource to list.
-     * @param $from
-     *   Unix timestamp for the start date to query Exchange.
-     * @param $to
-     *   Unix timestamp for the end date to query Exchange.
+     * @param $resource   The resource to list
+     * @param $from   Unix timestamp for the start date to query Exchange
+     * @param $to   Unix timestamp for the end date to query Exchange
      *
-     * @return ExchangeCalendar
-     *   Exchange calender with all bookings in the interval.
+     * @return exchangeCalendar Exchange calender with all bookings in the interval
      */
     public function getResourceBookings($resource, $from, $to)
     {
@@ -117,11 +110,11 @@ class ExchangeWebService
             '<ItemShape>',
             '<t:BaseShape>IdOnly</t:BaseShape>',
             '</ItemShape>',
-            '<CalendarView StartDate="' . date('c', $from) . '" EndDate="' . date('c', $to) . '"/>',
+            '<CalendarView StartDate="'.date('c', $from).'" EndDate="'.date('c', $to).'"/>',
             '<ParentFolderIds>',
             '<t:DistinguishedFolderId Id="calendar">',
             '<t:Mailbox>',
-            '<t:EmailAddress>' . $resource . '</t:EmailAddress>',
+            '<t:EmailAddress>'.$resource.'</t:EmailAddress>',
             '</t:Mailbox>',
             '</t:DistinguishedFolderId>',
             '</ParentFolderIds>',
@@ -148,8 +141,8 @@ class ExchangeWebService
         foreach ($calendarItems as $calendarItem) {
             $id = $this->nodeToArray($doc, $calendarItem);
             $itemIds[] = [
-              'id' => $id['ItemId']['@Id'],
-              'changeKey' => $id['ItemId']['@ChangeKey']
+                'id' => $id['ItemId']['@Id'],
+                'changeKey' => $id['ItemId']['@ChangeKey'],
             ];
         }
 
@@ -171,7 +164,7 @@ class ExchangeWebService
             }
 
             // Change from string to boolean.
-            $isAllDayEvent = $isAllDayEvent == 'true';
+            $isAllDayEvent = 'true' == $isAllDayEvent;
 
             // Create exchange booking.
             $booking = new ExchangeBooking();
@@ -193,12 +186,10 @@ class ExchangeWebService
      *
      * From: http://php.net/manual/en/class.domnode.php#115448
      *
-     * @param $dom
-     *   The dom document.
-     * @param $node
-     *   The dom node.
-     * @return array|bool
-     *   The node as an array or false if empty.
+     * @param DOMDocument $dom  The dom document
+     * @param DOMNode     $node The dom node
+     *
+     * @return array|bool The node as an array or false if empty
      */
     private function nodeToArray($dom, $node)
     {
@@ -213,7 +204,7 @@ class ExchangeWebService
             return $node->nodeValue;
         }
         foreach ($node->attributes as $attr) {
-            $array['@' . $attr->localName] = $attr->nodeValue;
+            $array['@'.$attr->localName] = $attr->nodeValue;
         }
         foreach ($node->childNodes as $childNode) {
             if (1 == $childNode->childNodes->length && XML_TEXT_NODE == $childNode->firstChild->nodeType) {
@@ -224,6 +215,7 @@ class ExchangeWebService
                 }
             }
         }
+
         return $array;
     }
 }

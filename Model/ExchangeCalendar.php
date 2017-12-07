@@ -7,8 +7,7 @@
 namespace Itk\ExchangeBundle\Model;
 
 /**
- * Class ExchangeCalendar
- * @package Itk\ExchangeBundle\Model
+ * Class ExchangeCalendar.
  */
 class ExchangeCalendar
 {
@@ -18,14 +17,10 @@ class ExchangeCalendar
     private $bookings;
 
     /**
-     * @param $resourceMail
-     *   The mail of the resource.
-     * @param $start
-     *   The start time.
-     * @param $end
-     *   The end time.
-     * @param array $bookings
-     *   The bookings.
+     * @param string $resourceMail The mail of the resource
+     * @param int    $start        The start time
+     * @param int    $end          The end time
+     * @param array  $bookings     The bookings
      */
     public function __construct(
         $resourceMail,

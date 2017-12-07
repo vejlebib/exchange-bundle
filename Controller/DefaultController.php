@@ -10,16 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class DefaultController
- * @package Itk\ExchangeBundle\Controller
+ * Class DefaultController.
  */
 class DefaultController extends Controller
 {
     /**
      * Test controller action.
      *
-     * @param $email
-     *   The email of the resource to get calendar data from.
+     * @param string $email The email of the resource to get calendar data from
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function testAction($email)

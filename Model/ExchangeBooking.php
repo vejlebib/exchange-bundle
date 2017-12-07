@@ -7,8 +7,7 @@
 namespace Itk\ExchangeBundle\Model;
 
 /**
- * Class ExchangeBooking
- * @package Itk\ExchangeBundle\Model
+ * Class ExchangeBooking.
  */
 class ExchangeBooking
 {
@@ -22,18 +21,12 @@ class ExchangeBooking
     /**
      * ExchangeBooking constructor.
      *
-     * @param string $event_name
-     *   The name of the booking.
-     * @param bool $is_all_day_event
-     *   Whether or not the event is an all day event.
-     * @param int $start_time
-     *   The booking start time.
-     * @param int $end_time
-     *   The booking end time.
-     * @param string $body
-     *   The booking body.
-     * @param string $location
-     *   The booking location.
+     * @param string $event_name       The name of the booking
+     * @param bool   $is_all_day_event Whether or not the event is an all day event
+     * @param int    $start_time       The booking start time
+     * @param int    $end_time         The booking end time
+     * @param string $body             The booking body
+     * @param string $location         The booking location
      */
     public function __construct(
         $event_name = '',
