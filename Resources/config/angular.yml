@@ -1,0 +1,16 @@
+assets:
+  css:
+    - bundles/itkexchange/assets/build/itkexchange.min.css
+  js_prod:
+    - bundles/itkexchange/assets/build/itkexchange.min.js
+
+modules:
+  exchangeModule:
+    files:
+      - bundles/itkexchange/apps/itkExchangeModule/itkExchangeModule.js
+      - bundles/itkexchange/apps/itkExchangeModule/itkEmailListTool.js
+
+apps:
+  ikApp:
+    dependencies:
+      - itkExchangeModule

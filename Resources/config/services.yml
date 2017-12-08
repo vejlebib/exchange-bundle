@@ -1,0 +1,18 @@
+services:
+  itk.exchange_service:
+    class: Itk\ExchangeBundle\Service\ExchangeService
+    arguments: [@itk.exchange_cache, @itk.exchange_web_service, @doctrine.orm.entity_manager, false, 1800]
+    tags:
+      - { name: kernel.event_listener, event: ik.cron, method: onCron }
+
+  itk.exchange_web_service:
+    class: Itk\ExchangeBundle\Service\ExchangeWebService
+    arguments: [@itk.exchange_soap_client]
+
+  itk.exchange_soap_client:
+    class: Itk\ExchangeBundle\Service\ExchangeSoapClientService
+    arguments: [%itk_exchange_host%, %itk_exchange_user%, %itk_exchange_password%, 'Exchange2010']
+
+  itk.exchange_cache:
+    class: Doctrine\Common\Cache\FilesystemCache
+    arguments: [%kernel.cache_dir%]

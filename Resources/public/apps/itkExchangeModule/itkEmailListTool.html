@@ -1,0 +1,63 @@
+<div class="edit-menu--background" role="banner">
+  <div class="edit-menu--background-inner">
+    <div class="edit-menu--toggle-icon" data-ng-click="close()">
+      <div class="svg-clickable">
+        <object data="bundles/os2displayadmin/images/svg/cancel.svg"
+                type="image/svg+xml">
+          <!-- Fallback (ie8)-->
+          <img src="bundles/os2displayadmin/images/cancel.png"/>
+        </object>
+      </div>
+    </div>
+    <div class="edit-menu--background-page">
+      <div class="edit-menu--background-page-inner">
+        <div class="itk-exchange--content">
+          <h2 class="edit-menu--background-header">Vælg emails</h2>
+
+          <div class="itk-exchange--tool-section">
+            <h2 class="itk-exchange--tool-headline">Vælg hvilke konti der skal
+              hentes kalenderbegivenheder fra</h2>
+            <form name="emailForm" ng-submit="addEmail()">
+              <label for="text">Email</label>
+              <input id="text" type="email" ng-model="email">
+              <input type="submit" class="itk-exchange--button"
+                     value="+ Tilføj email">
+            </form>
+          </div>
+
+          <div class="itk-exchange--tool-section">
+            <h2 class="itk-exchange--tool-headline">Valgte emails</h2>
+
+            <div
+                data-ng-repeat="resource in slide.options.resources track by $index"
+                class="itk-exchange--resource-list-element">
+              {{resource.mail}}
+              <span>
+              <div class="itk-exchange--button-remove is-small"
+                   data-ng-click="removeEmail($index)">Fjern
+              </div>
+            </span>
+            </div>
+          </div>
+
+          <div class="itk-exchange--tool-section">
+            <h2 class="itk-exchange--tool-headline">Information</h2>
+
+            <p>
+              Dette værktøj bruger en servicekonto, til at tilgå de ovenstående
+              email-konti i den tilkoblede Exchange installation.
+            </p>
+            <p>
+              For at få adgang til de ovenstående email-kontis kalender, skal
+              de været "delt" med servicekontoen. Dette gøres i Outlook/Exchange
+              miljøet.
+            </p>
+            <p>
+              Information of deling af kalender: <a href="https://support.office.com/en-us/article/Share-an-Outlook-calendar-with-other-people-353ed2c1-3ec5-449d-8c73-6931a0adab88" target="_blank"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

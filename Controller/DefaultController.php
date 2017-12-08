@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains controller actions for the bundle.
+ */
 
 namespace Itk\ExchangeBundle\Controller;
 
@@ -6,24 +10,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class DefaultController
- * @package Itk\ExchangeBundle\Controller
+ * Class DefaultController.
  */
 class DefaultController extends Controller
 {
     /**
      * Test controller action.
      *
-     * @param $email
-     *   The email of the resource to get calendar data from.
+     * @param string $email The email of the resource to get calendar data from
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function indexAction($email)
+    public function testAction($email)
     {
-        $start = mktime(0, 0, 0);
-        $end = strtotime('+7 days', mktime(23, 59, 29));
+        $now = time();
 
-        $calendar = $this->get('os2display.exchange_service')
+        $start = strtotime('-7 days', $now);
+        $end = strtotime('+7 days', $now);
+
+        $calendar = $this->get('itk.exchange_service')
             ->getExchangeBookingsForInterval(
                 $email,
                 $start,
