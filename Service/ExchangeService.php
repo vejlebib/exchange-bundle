@@ -99,7 +99,11 @@ class ExchangeService
         // Round down to nearest hour
         $start = $start - ($start % 3600);
 
-        $todayEnd = mktime(23, 59, 59) ?: strtotime('+1 days', $start);
+        $todayEnd = mktime(23, 59, 59);
+
+        if ($todayEnd === false) {
+            return;
+        }
 
         // Get data for interest period
         foreach ($slides as $slide) {
@@ -112,7 +116,7 @@ class ExchangeService
                 $interestInterval = 6;
 
                 // Figure out how many days should be added to $todayEnd.
-                if (isset($options['interest_interval'])) {
+                if (isset($options['interest_interval']) && is_int($options['interest_interval'])) {
                     if ($options['interest_interval'] <= 1) {
                         $interestInterval = 0;
                     } else {
@@ -122,6 +126,10 @@ class ExchangeService
 
                 // Move today with number of requested days.
                 $end = strtotime('+'.$interestInterval.' days', $todayEnd);
+
+                if ($end === false) {
+                    continue;
+                }
 
                 $resourceBookings = [];
 

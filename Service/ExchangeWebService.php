@@ -225,7 +225,7 @@ class ExchangeWebService
             if (1 == $childNode->childNodes->length && XML_TEXT_NODE == $childNode->firstChild->nodeType) {
                 $array[$childNode->localName] = $childNode->nodeValue;
             } else {
-                if (false !== ($a = self::nodeToArray($dom, $childNode))) {
+                if (false !== ($a = $this->nodeToArray($dom, $childNode))) {
                     $array[$childNode->localName] = $a;
                 }
             }
