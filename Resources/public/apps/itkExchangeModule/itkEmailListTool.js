@@ -15,7 +15,7 @@ angular.module('itkExchangeModule').directive('itkEmailListTool', [
         slide: '=',
         close: '&'
       },
-      link: function (scope, element, attrs) {
+      link: function (scope) {
         scope.email = "";
 
         /**

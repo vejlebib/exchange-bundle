@@ -35,11 +35,11 @@ gulp.task('sass', 'Compile the sass .', function () {
   var sassPath = 'sass/*.scss';
 
   gulp.src(sassPath)
-    .pipe(sass({
-      outputStyle: 'compressed'
-    }).on('error', sass.logError))
-    .pipe(rename({extname: ".min.css"}))
-    .pipe(gulp.dest(adminBuildDir));
+  .pipe(sass({
+    outputStyle: 'compressed'
+  }).on('error', sass.logError))
+  .pipe(rename({extname: ".min.css"}))
+  .pipe(gulp.dest(adminBuildDir));
 });
 
 // We only want to process our own non-processed JavaScript files.
@@ -53,11 +53,13 @@ var adminJsPath = (function () {
     buildFiles = function (data) {
       if (typeof(data) === 'object') {
         for (var p in data) {
-          if (p === 'files') {
-            jsFiles = jsFiles.concat(data[p]);
-          }
-          else {
-            buildFiles(data[p]);
+          if (data.hasOwnProperty(p)) {
+            if (p === 'files') {
+              jsFiles = jsFiles.concat(data[p]);
+            }
+            else {
+              buildFiles(data[p]);
+            }
           }
         }
       }

@@ -6,6 +6,12 @@
         "os2display/core-bundle": "^1.0",
         "doctrine/cache": "^1.0"
     },
+    "repositories": {
+        "os2display/core-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/os2display/core-bundle"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Itk\\ExchangeBundle\\": ""
