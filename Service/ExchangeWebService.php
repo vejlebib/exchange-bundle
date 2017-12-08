@@ -107,7 +107,7 @@ class ExchangeWebService
         $dateFrom = date('c', $from);
         $dateTo = date('c', $to);
 
-        if (false == $dateFrom || false == $dateTo) {
+        if (false === $dateFrom || false === $dateTo) {
             return $calendar;
         }
 
@@ -170,11 +170,11 @@ class ExchangeWebService
                 $body = '';
             }
 
-            if (false == $startTime) {
+            if (false === $startTime) {
                 $startTime = null;
             }
 
-            if (false == $endTime) {
+            if (false === $endTime) {
                 $endTime = null;
             }
 
