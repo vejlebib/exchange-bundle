@@ -8,7 +8,6 @@
 namespace Itk\ExchangeBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Os2Display\CoreBundle\Events\CronEvent;
 use Doctrine\Common\Cache\CacheProvider;
 
 /**
@@ -51,10 +50,8 @@ class ExchangeService
      * ik.onCron event listener.
      *
      * Updates calendar slides.
-     *
-     * @param CronEvent $event The cron event
      */
-    public function onCron(CronEvent $event)
+    public function onCron()
     {
         // Only run if enabled.
         if (!$this->serviceEnabled) {
@@ -102,7 +99,7 @@ class ExchangeService
         // Round down to nearest hour
         $start = $start - ($start % 3600);
 
-        $todayEnd = mktime(23, 59, 59);
+        $todayEnd = mktime(23, 59, 59) ?: strtotime('+1 days', $start);
 
         // Get data for interest period
         foreach ($slides as $slide) {

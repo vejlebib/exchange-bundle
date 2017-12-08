@@ -87,7 +87,7 @@ class ExchangeSoapClientService
         $options = $options + $this->curlOptions;
 
         // Run the XML through DOMDocument to get an verify on the format.
-        $doc = new \DOMDocument();
+        $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->loadXML($this->generateSoapMessage($xmlBody, $impersonationId));
 
         // Render and store the final request string.

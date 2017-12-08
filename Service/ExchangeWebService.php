@@ -72,7 +72,7 @@ class ExchangeWebService
         );
 
         $xml = $this->client->request('GetItem', $body);
-        $doc = new \DOMDocument();
+        $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->loadXML($xml);
 
         $xpath = new \DOMXPath($doc);
@@ -94,9 +94,9 @@ class ExchangeWebService
     /**
      * Get bookings on a resource.
      *
-     * @param $resource   The resource to list
-     * @param $from   Unix timestamp for the start date to query Exchange
-     * @param $to   Unix timestamp for the end date to query Exchange
+     * @param string $resource The resource to list
+     * @param int    $from     Unix timestamp for the start date to query Exchange
+     * @param int    $to       Unix timestamp for the end date to query Exchange
      *
      * @return exchangeCalendar Exchange calender with all bookings in the interval
      */
@@ -104,13 +104,20 @@ class ExchangeWebService
     {
         $calendar = new ExchangeCalendar($resource, $from, $to);
 
+        $dateFrom = date('c', $from);
+        $dateTo = date('c', $to);
+
+        if (false == $dateFrom || false == $dateTo) {
+            return $calendar;
+        }
+
         // Build XML body.
         $requstBody = implode('', [
             '<FindItem  Traversal="Shallow" xmlns="http://schemas.microsoft.com/exchange/services/2006/messages">',
             '<ItemShape>',
             '<t:BaseShape>IdOnly</t:BaseShape>',
             '</ItemShape>',
-            '<CalendarView StartDate="'.date('c', $from).'" EndDate="'.date('c', $to).'"/>',
+            '<CalendarView StartDate="'.$dateFrom.'" EndDate="'.$dateTo.'"/>',
             '<ParentFolderIds>',
             '<t:DistinguishedFolderId Id="calendar">',
             '<t:Mailbox>',
@@ -126,7 +133,7 @@ class ExchangeWebService
         $xml = $this->client->request('FindItem', $requstBody);
 
         // Parse the response.
-        $doc = new \DOMDocument();
+        $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->loadXML($xml);
 
         $xpath = new \DOMXPath($doc);
@@ -163,6 +170,14 @@ class ExchangeWebService
                 $body = '';
             }
 
+            if (false == $startTime) {
+                $startTime = null;
+            }
+
+            if (false == $endTime) {
+                $endTime = null;
+            }
+
             // Change from string to boolean.
             $isAllDayEvent = 'true' == $isAllDayEvent;
 
@@ -186,10 +201,10 @@ class ExchangeWebService
      *
      * From: http://php.net/manual/en/class.domnode.php#115448
      *
-     * @param DOMDocument $dom  The dom document
-     * @param DOMNode     $node The dom node
+     * @param \DOMDocument $dom  The dom document
+     * @param \DOMNode     $node The dom node
      *
-     * @return array|bool The node as an array or false if empty
+     * @return string|array|bool The node as an array or false if empty
      */
     private function nodeToArray($dom, $node)
     {

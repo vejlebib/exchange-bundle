@@ -23,8 +23,10 @@ class DefaultController extends Controller
      */
     public function testAction($email)
     {
-        $start = strtotime('-7 days', mktime(23, 59, 29));
-        $end = strtotime('+7 days', mktime(23, 59, 29));
+        $now = time();
+
+        $start = strtotime('-7 days', $now);
+        $end = strtotime('+7 days', $now);
 
         $calendar = $this->get('itk.exchange_service')
             ->getExchangeBookingsForInterval(
