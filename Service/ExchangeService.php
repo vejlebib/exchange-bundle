@@ -137,7 +137,7 @@ class ExchangeService
 
                 // Serve cached data if available, else get fresh results from EWS.
                 $cachedData = $this->cache->fetch($cacheKey);
-                if (false === ($cachedData)) {
+                if (false === $cachedData) {
                     try {
                         $resourceBookings = $this->getExchangeBookingsForInterval(
                             $resource['mail'],
