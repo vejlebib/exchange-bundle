@@ -111,12 +111,19 @@ class ExchangeService
 
             $options = $slide->getOptions();
 
+            // Ignore slides where resources are not set.
+            if (!isset($options) || !isset($options['resources'])) {
+                continue;
+            }
+
             foreach ($options['resources'] as $resource) {
                 // Default interval is today + 6 days.
                 $interestInterval = 6;
 
                 // Figure out how many days should be added to $todayEnd.
-                if (isset($options['interest_interval']) && is_int($options['interest_interval'])) {
+                if (isset($options['interest_interval']) &&
+                    is_int($options['interest_interval'])
+                ) {
                     if ($options['interest_interval'] <= 1) {
                         $interestInterval = 0;
                     } else {
@@ -165,9 +172,12 @@ class ExchangeService
             }
 
             // Sort bookings by start time.
-            usort($bookings, function ($a, $b) {
-                return strcmp($a->getStartTime(), $b->getStartTime());
-            });
+            usort(
+                $bookings,
+                function ($a, $b) {
+                    return strcmp($a->getStartTime(), $b->getStartTime());
+                }
+            );
 
             // Save to slide.external_data field.
             $slide->setExternalData($bookings);
