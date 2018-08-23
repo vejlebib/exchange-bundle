@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## In develop
+
+* Added test command.
+
 ## 1.0.1
 
 * Fixed issue where slides without options.resources set, made cron crash.
