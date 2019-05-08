@@ -4,9 +4,9 @@
  */
 
 /**
- * Tool: itk-email-list-tool.
+ * Tool: os2display-email-list-tool.
  */
-angular.module('itkExchangeModule').directive('itkEmailListTool', [
+angular.module('os2displayExchangeModule').directive('os2displayEmailListTool', [
   function () {
     return {
       restrict: 'E',
@@ -45,7 +45,7 @@ angular.module('itkExchangeModule').directive('itkEmailListTool', [
           scope.slide.options.resources.splice(index, 1);
         };
       },
-      templateUrl: '/bundles/itkexchange/apps/itkExchangeModule/itkEmailListTool.html'
+      templateUrl: '/bundles/os2displayexchange/apps/os2displayExchangeModule/os2displayEmailListTool.html'
     };
   }
 ]);

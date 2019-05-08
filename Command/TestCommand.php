@@ -1,6 +1,6 @@
 <?php
 
-namespace Itk\ExchangeBundle\Command;
+namespace Os2Display\ExchangeBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class TestCommand
  *
- * @package Itk\ExchangeBundle\Command
+ * @package Os2Display\ExchangeBundle\Command
  */
 class TestCommand extends ContainerAwareCommand {
   /**
@@ -37,7 +37,7 @@ class TestCommand extends ContainerAwareCommand {
       $start = strtotime('-7 days', $now);
       $end = strtotime('+7 days', $now);
 
-      $calendar = $this->getContainer()->get('itk.exchange_service')
+      $calendar = $this->getContainer()->get('os2display.exchange.service')
           ->getExchangeBookingsForInterval(
               $input->getArgument('email'),
               $start,

@@ -3,7 +3,7 @@
  * Contains configuration.
  */
 
-namespace Itk\ExchangeBundle\DependencyInjection;
+namespace Os2Display\ExchangeBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('itk_exchange');
+        $rootNode = $treeBuilder->root('os2_display_exchange');
 
         // Set up re
         $rootNode

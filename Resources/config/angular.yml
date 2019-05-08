@@ -1,16 +1,16 @@
 assets:
   css:
-    - bundles/itkexchange/assets/build/itkexchange.min.css
+    - bundles/os2displayexchange/assets/build/os2displayexchange.min.css
   js_prod:
-    - bundles/itkexchange/assets/build/itkexchange.min.js
+    - bundles/os2displayexchange/assets/build/os2displayexchange.min.js
 
 modules:
   exchangeModule:
     files:
-      - bundles/itkexchange/apps/itkExchangeModule/itkExchangeModule.js
-      - bundles/itkexchange/apps/itkExchangeModule/itkEmailListTool.js
+      - bundles/os2displayexchange/apps/os2displayExchangeModule/os2displayExchangeModule.js
+      - bundles/os2displayexchange/apps/os2displayExchangeModule/os2displayEmailListTool.js
 
 apps:
   ikApp:
     dependencies:
-      - itkExchangeModule
+      - os2displayExchangeModule

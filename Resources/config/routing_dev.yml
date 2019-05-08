@@ -1,3 +1,3 @@
-itk_exchange_test:
+os2display_exchange.test:
     path:     /exchange/test/{email}
-    defaults: { _controller: ItkExchangeBundle:Default:test }
+    defaults: { _controller: Os2DisplayExchangeBundle:Default:test }

@@ -4,7 +4,7 @@
  * Contains controller actions for the bundle.
  */
 
-namespace Itk\ExchangeBundle\Controller;
+namespace Os2Display\ExchangeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +28,7 @@ class DefaultController extends Controller
         $start = strtotime('-7 days', $now);
         $end = strtotime('+7 days', $now);
 
-        $calendar = $this->get('itk.exchange_service')
+        $calendar = $this->get('os2display.exchange.service')
             ->getExchangeBookingsForInterval(
                 $email,
                 $start,
