@@ -1,4 +1,4 @@
-# itk-os2display/exchange-bundle
+# os2display/exchange-bundle
 Integration to get calendar data from Exchange Web Service.
 
 ## Installation
@@ -6,9 +6,9 @@ Add the git repository to "repositories" in `composer.json`.
 
 ```
 "repositories": {
-    "itk-os2display/exchange-bundle": {
+    "os2display/exchange-bundle": {
       "type": "vcs",
-      "url": "https://github.com/itk-os2display/exchange-bundle"
+      "url": "https://github.com/os2display/exchange-bundle"
     },
     ...
 }
@@ -17,17 +17,17 @@ Add the git repository to "repositories" in `composer.json`.
 Require the bundle with composer.
 
 ```sh
-composer require itk-os2display/exchange-bundle
+composer require os2display/exchange-bundle
 ```
 
 To enable the integration, add the following to your `config.yml`.
 
 ```sh
-itk_exchange:
+os2_display_exchange:
     enabled: true
-    host: %itk_exchange_host%
-    user: %itk_exchange_user%
-    password: %itk_exchange_password%
+    host: %os2display_exchange.host%
+    user: %os2display_exchange.user%
+    password: %os2display_exchange.password%
     version: Exchange2010
     cache_ttl: 1800
 ```
@@ -37,15 +37,15 @@ Change this to match your setup.
 And add the following to your `parameters.yml`.
 
 ```sh
-itk_exchange_host: [HOST]
-itk_exchange_user: [USER]
-itk_exchange_password: [PASSWORD]
+os2display_exchange.host: [HOST]
+os2display_exchange.user: [USER]
+os2display_exchange.password: [PASSWORD]
 ```
 
-Enable the bundle in `AppKernel.php`, by adding ItkExchangeBundle to $bundles.
+Enable the bundle in `AppKernel.php`, by adding Os2DisplayExchangeBundle to $bundles.
 
 ```sh
-new Itk\ExchangeBundle\ItkExchangeBundle()
+new Os2Display\ExchangeBundle\Os2DisplayExchangeBundle()
 ```
 
 ## What the bundle does
@@ -60,7 +60,7 @@ It is possible to set `slide.options.interest_interval` to how many days into th
 future the process should gather events for.
 
 ## Slide tool
-The bundle injects the slide tool itk-email-list-tool that can be used to set
+The bundle injects the slide tool os2display-email-list-tool that can be used to set
 the resources.
 
 ## Service account

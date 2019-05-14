@@ -4,7 +4,7 @@
  * Customer Exception for methods not supported yet.
  */
 
-namespace Itk\ExchangeBundle\Exceptions;
+namespace Os2Display\ExchangeBundle\Exceptions;
 
 /**
  * Class ExchangeNotSupportedException.

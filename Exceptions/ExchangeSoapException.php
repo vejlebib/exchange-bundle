@@ -4,7 +4,7 @@
  * Customer Exception for soap exception.
  */
 
-namespace Itk\ExchangeBundle\Exceptions;
+namespace Os2Display\ExchangeBundle\Exceptions;
 
 /**
  * Class ExchangeSoapException.

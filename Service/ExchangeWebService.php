@@ -4,10 +4,10 @@
  * Contains the Os2Display ExchangeService.
  */
 
-namespace Itk\ExchangeBundle\Service;
+namespace Os2Display\ExchangeBundle\Service;
 
-use Itk\ExchangeBundle\Model\ExchangeBooking;
-use Itk\ExchangeBundle\Model\ExchangeCalendar;
+use Os2Display\ExchangeBundle\Model\ExchangeBooking;
+use Os2Display\ExchangeBundle\Model\ExchangeCalendar;
 
 /**
  * Class ExchangeWebService.
@@ -19,7 +19,7 @@ class ExchangeWebService
     /**
      * ExchangeWebService constructor.
      *
-     * @param \Itk\ExchangeBundle\Service\ExchangeSoapClientService $client The soap client service
+     * @param \Os2Display\ExchangeBundle\Service\ExchangeSoapClientService $client The soap client service
      */
     public function __construct(ExchangeSoapClientService $client)
     {

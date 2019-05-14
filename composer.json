@@ -1,5 +1,5 @@
 {
-    "name": "itk-os2display/exchange-bundle",
+    "name": "os2display-os2display/exchange-bundle",
     "description": "Os2Display exchange calendar integration",
     "type": "symfony-bundle",
     "require": {
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Itk\\ExchangeBundle\\": ""
+            "Os2Display\\ExchangeBundle\\": ""
         }
     }
 }
