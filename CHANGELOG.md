@@ -1,7 +1,8 @@
 # CHANGELOG
 
-## In develop
+## 2.0.0
 
+* Renamed to Os2DisplayExchangeBundle.
 * Added test command.
 
 ## 1.0.1
