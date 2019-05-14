@@ -4,7 +4,7 @@
  * Contains the model for an exchange booking.
  */
 
-namespace Itk\ExchangeBundle\Model;
+namespace Os2Display\ExchangeBundle\Model;
 
 /**
  * Class ExchangeBooking.

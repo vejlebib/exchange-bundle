@@ -11,37 +11,37 @@
     </div>
     <div class="edit-menu--background-page">
       <div class="edit-menu--background-page-inner">
-        <div class="itk-exchange--content">
+        <div class="os2display-exchange--content">
           <h2 class="edit-menu--background-header">Vælg emails</h2>
 
-          <div class="itk-exchange--tool-section">
-            <h2 class="itk-exchange--tool-headline">Vælg hvilke konti der skal
+          <div class="os2display-exchange--tool-section">
+            <h2 class="os2display-exchange--tool-headline">Vælg hvilke konti der skal
               hentes kalenderbegivenheder fra</h2>
             <form name="emailForm" ng-submit="addEmail()">
               <label for="text">Email</label>
               <input id="text" type="email" ng-model="email">
-              <input type="submit" class="itk-exchange--button"
+              <input type="submit" class="os2display-exchange--button"
                      value="+ Tilføj email">
             </form>
           </div>
 
-          <div class="itk-exchange--tool-section">
-            <h2 class="itk-exchange--tool-headline">Valgte emails</h2>
+          <div class="os2display-exchange--tool-section">
+            <h2 class="os2display-exchange--tool-headline">Valgte emails</h2>
 
             <div
                 data-ng-repeat="resource in slide.options.resources track by $index"
-                class="itk-exchange--resource-list-element">
+                class="os2display-exchange--resource-list-element">
               {{resource.mail}}
               <span>
-              <div class="itk-exchange--button-remove is-small"
+              <div class="os2display-exchange--button-remove is-small"
                    data-ng-click="removeEmail($index)">Fjern
               </div>
             </span>
             </div>
           </div>
 
-          <div class="itk-exchange--tool-section">
-            <h2 class="itk-exchange--tool-headline">Information</h2>
+          <div class="os2display-exchange--tool-section">
+            <h2 class="os2display-exchange--tool-headline">Information</h2>
 
             <p>
               Dette værktøj bruger en servicekonto, til at tilgå de ovenstående

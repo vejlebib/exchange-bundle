@@ -1,18 +1,22 @@
 services:
-  itk.exchange_service:
-    class: Itk\ExchangeBundle\Service\ExchangeService
-    arguments: [@itk.exchange_cache, @itk.exchange_web_service, @doctrine.orm.entity_manager, false, 1800]
+  os2display.exchange.service:
+    class: Os2Display\ExchangeBundle\Service\ExchangeService
+    arguments: ['@os2display.exchange.cache', '@os2display.exchange.web_service', '@doctrine.orm.entity_manager', false, 1800]
     tags:
       - { name: kernel.event_listener, event: ik.cron, method: onCron }
+    public: true
 
-  itk.exchange_web_service:
-    class: Itk\ExchangeBundle\Service\ExchangeWebService
-    arguments: [@itk.exchange_soap_client]
+  os2display.exchange.web_service:
+    class: Os2Display\ExchangeBundle\Service\ExchangeWebService
+    arguments: ['@os2display.exchange.soap_client']
+    public: true
 
-  itk.exchange_soap_client:
-    class: Itk\ExchangeBundle\Service\ExchangeSoapClientService
-    arguments: [%itk_exchange_host%, %itk_exchange_user%, %itk_exchange_password%, 'Exchange2010']
+  os2display.exchange.soap_client:
+    class: Os2Display\ExchangeBundle\Service\ExchangeSoapClientService
+    arguments: ['%os2display_exchange.host%', '%os2display_exchange.user%', '%os2display_exchange.password%', 'Exchange2010']
+    public: true
 
-  itk.exchange_cache:
+  os2display.exchange.cache:
     class: Doctrine\Common\Cache\FilesystemCache
-    arguments: [%kernel.cache_dir%]
+    arguments: ['%kernel.cache_dir%']
+    public: true

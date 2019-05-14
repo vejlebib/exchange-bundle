@@ -5,7 +5,7 @@
  * Handles cron event, and provides call to get a resource's calendar events.
  */
 
-namespace Itk\ExchangeBundle\Service;
+namespace Os2Display\ExchangeBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Cache\CacheProvider;
@@ -38,7 +38,7 @@ class ExchangeService
         $cacheTTL
     ) {
         $this->cache = $cache;
-        $this->cache->setNamespace('itk_exchange.cache');
+        $this->cache->setNamespace('os2display_exchange.cache');
 
         $this->exchangeWebService = $exchangeWebService;
         $this->serviceEnabled = $serviceEnabled;

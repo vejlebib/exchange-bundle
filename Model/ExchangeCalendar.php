@@ -4,7 +4,7 @@
  * Contains the model for an exchange calendar.
  */
 
-namespace Itk\ExchangeBundle\Model;
+namespace Os2Display\ExchangeBundle\Model;
 
 /**
  * Class ExchangeCalendar.
@@ -99,7 +99,7 @@ class ExchangeCalendar
     }
 
     /**
-     * @param \Itk\ExchangeBundle\Model\ExchangeBooking $booking
+     * @param \Os2Display\ExchangeBundle\Model\ExchangeBooking $booking
      */
     public function addBooking(ExchangeBooking $booking)
     {
