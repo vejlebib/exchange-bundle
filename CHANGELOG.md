@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1
+
+* Fixed license.
+
 ## 2.0.0
 
 * Renamed to Os2DisplayExchangeBundle.
