@@ -1,5 +1,5 @@
 {
-    "name": "os2display-os2display/exchange-bundle",
+    "name": "os2display/exchange-bundle",
     "description": "Os2Display exchange calendar integration",
     "type": "symfony-bundle",
     "require": {

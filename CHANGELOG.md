@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.2
+
+* Fixed composer name.
+
 ## 2.0.1
 
 * Fixed license.
