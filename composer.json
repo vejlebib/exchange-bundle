@@ -3,16 +3,10 @@
     "description": "Os2Display exchange calendar integration",
     "type": "symfony-bundle",
     "require": {
-        "symfony/symfony": "^2.8",
+        "symfony/symfony": "^3.4",
         "doctrine/cache": "^1.0",
         "doctrine/doctrine-bundle": "^1.2",
-        "os2display/core-bundle": "^1.0"
-    },
-    "repositories": {
-        "os2display/core-bundle": {
-            "type": "vcs",
-            "url": "https://github.com/os2display/core-bundle"
-        }
+        "os2display/core-bundle": "^2.0"
     },
     "autoload": {
         "psr-4": {
