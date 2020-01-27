@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.0
+
+* Merged https://github.com/os2display/exchange-bundle/pull/1 - Update core dependency version.
+
 ## 2.0.2
 
 * Fixed composer name.
