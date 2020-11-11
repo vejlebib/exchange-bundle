@@ -165,10 +165,31 @@ class ExchangeService
                     $resourceBookings = $cachedData;
                 }
 
+                // Apply location override.
+                if (!empty($resource['location'])) {
+                    $resourceBookings = array_map(function($booking) use ($resource) {
+                        $booking->setLocation($resource['location']);
+                        return $booking;
+                    }, $resourceBookings);
+                }
+
                 // Merge results.
                 if (count($resourceBookings) > 0) {
                     $bookings = array_merge($bookings, $resourceBookings);
                 }
+            }
+
+            // Apply event filter.
+            if (!empty($options['eventFilter']['filter'])) {
+                $filter_string = $options['eventFilter']['filter'];
+                $filter_exclude = !empty($options['eventFilter']['exclude']);
+                $bookings = array_filter(
+                    $bookings,
+                    function($booking) use ($filter_string, $filter_exclude) {
+                        $filter_match = !empty($booking->getBody()) && strpos($booking->getBody(), $filter_string) !== FALSE;
+                        return $filter_exclude ? !$filter_match : $filter_match;
+                    }
+                );
             }
 
             // Sort bookings by start time.
